@@ -1,0 +1,251 @@
+{
+  "version": "3.4",
+  "log": [
+    {
+      "contracts/RpcGo.sol:RpcGo": {
+        "src": "contracts/RpcGo.sol:5",
+        "version": {
+          "withMetadata": "725571aac96261fbb734cf37e0f9c27f26e56c4d89085e6903eacb6f688debd8",
+          "withoutMetadata": "45f015e8c76f00ed7c1f3d017d2e87969ef8a1e218d3e16d6417b943309349fa",
+          "linkedWithoutMetadata": "45f015e8c76f00ed7c1f3d017d2e87969ef8a1e218d3e16d6417b943309349fa"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "submitTransaction(address,uint256,bytes)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.19"
+      },
+      "hardhat/console.sol:console": {
+        "src": "hardhat/console.sol:4",
+        "version": {
+          "withMetadata": "6543f9ed0dea925e42b32911ec9cca654ef9ab2834f3b46358e5f22cb3e8c8a1",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.19"
+      }
+    },
+    {
+      "contracts/Rpc.sol:RpcGo": {
+        "src": "contracts/Rpc.sol:5",
+        "version": {
+          "withMetadata": "7235ba3e86fa8eb7e119ab081c529533ae7ca948fef3db5ee70b1cf39b4cc954",
+          "withoutMetadata": "45f015e8c76f00ed7c1f3d017d2e87969ef8a1e218d3e16d6417b943309349fa",
+          "linkedWithoutMetadata": "45f015e8c76f00ed7c1f3d017d2e87969ef8a1e218d3e16d6417b943309349fa"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "submitTransaction(address,uint256,bytes)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.19"
+      },
+      "hardhat/console.sol:console": {
+        "src": "hardhat/console.sol:4",
+        "version": {
+          "withMetadata": "6543f9ed0dea925e42b32911ec9cca654ef9ab2834f3b46358e5f22cb3e8c8a1",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.19"
+      }
+    },
+    {
+      "contracts/ERC20.sol:ERC20": {
+        "src": "contracts/ERC20.sol:4",
+        "version": {
+          "withMetadata": "65cae1c69a0e5238cfe885bed9438e0c2f94edca057ff35d70c1334ced4be6c8",
+          "withoutMetadata": "3d5c2dad5d88b71a657b0687e5859523f91b724cdf9c6f61b92002cc22d5b686",
+          "linkedWithoutMetadata": "3d5c2dad5d88b71a657b0687e5859523f91b724cdf9c6f61b92002cc22d5b686"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "balanceOf(address)",
+          "allowance(address,address)",
+          "transfer(address,uint256)",
+          "approve(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "()"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "ERC20",
+            "src": "contracts/ERC20.sol:54"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "decimals",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_uint8",
+              "contract": "ERC20",
+              "src": "contracts/ERC20.sol:5"
+            },
+            {
+              "label": "totalSupply",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_uint256",
+              "contract": "ERC20",
+              "src": "contracts/ERC20.sol:6"
+            },
+            {
+              "label": "name",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_string_storage",
+              "contract": "ERC20",
+              "src": "contracts/ERC20.sol:8"
+            },
+            {
+              "label": "symbol",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_string_storage",
+              "contract": "ERC20",
+              "src": "contracts/ERC20.sol:9"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "ERC20",
+              "src": "contracts/ERC20.sol:11"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "ERC20",
+              "src": "contracts/ERC20.sol:12"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_string_storage": {
+              "label": "string",
+              "numberOfBytes": "32"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            },
+            "t_uint8": {
+              "label": "uint8",
+              "numberOfBytes": "1"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.19"
+      },
+      "contracts/Rpc.sol:Rpc": {
+        "src": "contracts/Rpc.sol:5",
+        "version": {
+          "withMetadata": "2c989fdd3795d516b783563b1271f8fff531a65c50fa620e79158ee4606dfaf4",
+          "withoutMetadata": "45f015e8c76f00ed7c1f3d017d2e87969ef8a1e218d3e16d6417b943309349fa",
+          "linkedWithoutMetadata": "45f015e8c76f00ed7c1f3d017d2e87969ef8a1e218d3e16d6417b943309349fa"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "submitTransaction(address,uint256,bytes)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.19"
+      },
+      "hardhat/console.sol:console": {
+        "src": "hardhat/console.sol:4",
+        "version": {
+          "withMetadata": "6543f9ed0dea925e42b32911ec9cca654ef9ab2834f3b46358e5f22cb3e8c8a1",
+          "withoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db",
+          "linkedWithoutMetadata": "a64c6cf9c6ba9368f5132c93a0196b3204a7963dbb4dd05dfddb4ab23126b8db"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.19"
+      }
+    }
+  ]
+}
