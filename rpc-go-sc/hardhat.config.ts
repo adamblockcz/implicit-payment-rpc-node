@@ -14,11 +14,6 @@ require('./tasks');
 
 dotenv.config();
 
-// Ensure that we have all the environment variables we need.
-const mnemonic: string | undefined = process.env.MNEMONIC;
-if (!mnemonic) {
-  throw new Error("Please set your MNEMONIC in a .env file");
-}
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -46,81 +41,18 @@ const config: HardhatUserConfig = {
     }
   },
   networks: {
-    bscTestnet: {
-      url: "https://data-seed-prebsc-2-s1.bnbchain.org:8545",
-      chainId: 97,
-      gasPrice: 10000000000,
-      gas: 15044139,
-      accounts: {
-        count: 12,
-        mnemonic,
-        path: "m/44'/60'/0'/0",
-      },
-    },
-    bscmainnet: {
-      url: "https://bsc-dataseed.binance.org/",
-      chainId: 56,
-      gasPrice: 3000000000,
-      accounts: {
-        count: 12,
-        mnemonic,
-        path: "m/44'/60'/0'/0",
-      },
-    },
-    arbitrumSepolia: {
-      url: 'https://arb-sepolia.g.alchemy.com/v2/qJn9AwSqRsmZZThXE2QUMFK0ZJxaszwo',
-      chainId: 421614,
-      accounts: {
-        count: 12,
-        mnemonic,
-        path: "m/44'/60'/0'/0",
-      },
-    },
-    optimisticSepolia: {
-      url: 'https://opt-sepolia.g.alchemy.com/v2/VsH9uwvN_ZlTty81pPKc5jLyfUtzQ3CA',
-      gasPrice: 4000000,
-      chainId: 11155420,
-      accounts: {
-        count: 12,
-        mnemonic,
-        path: "m/44'/60'/0'/0",
-      },
-    },
-    sepolia: {
-      url: "https://eth-sepolia.g.alchemy.com/v2/2d8Y6PGH9pUxs7ppKbuUsztVq8hjQDui",
-      accounts: {
-        count: 12,
-        mnemonic,
-        path: "m/44'/60'/0'/0",
-      },
-    },
-    polygonMumbai: {
-      url: "https://polygon-mumbai.g.alchemy.com/v2/9Fh4piJA_Iq77pzVY7Zvw2GTz4TtLg-N",
-      gasPrice: 10000000000,
-      accounts: {
-        count: 12,
-        mnemonic,
-        path: "m/44'/60'/0'/0",
-      },
-    },
-    polygon: {
-      url: "https://api.tatum.io/v3/blockchain/node/MATIC/b6b2bc61-64af-4b1b-ad6c-a0ffee7a0e72",
-      gasPrice: 3000000000000,
-      accounts: {
-        count: 12,
-        mnemonic,
-        path: "m/44'/60'/0'/0",
-      },
+    rinkeby: {
+      url: "https://ethereum-holesky-rpc.publicnode.com",
+      chainId: 17000,
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
     hardhat: {
       // forking: {
       //   url: process.env.NODE_URI !== undefined ? process.env.NODE_URI : '',
       //   // blockNumber: 32910027
       // },
-      accounts: {
-        mnemonic,
-        count: 100,
-      }
+      
     },
   },
   gasReporter: {

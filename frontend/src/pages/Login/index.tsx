@@ -1,64 +1,75 @@
-import React from 'react';
-import { makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material/styles';
-import { Button, Container, Typography } from '@mui/material';
+import React, { use, useEffect } from 'react';
+import { styled } from '@mui/system';
+import { Box, Button, Container, Typography } from '@mui/material';
+import { useAccount } from 'wagmi';
+import { useRouter } from 'next/router';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    height: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#fff', // White background color
-    backgroundImage: `radial-gradient(#c0c0c0 1px, transparent 1px), radial-gradient(#c0c0c0 1px, transparent 1px)`, // Slightly darker grey dots pattern
-    backgroundSize: '20px 20px', // Adjust the size of the dots
-  },
-  logo: {
-    width: '150px', // Adjust the width as needed
-    marginBottom: theme.spacing(4),
-  },
-  loginBox: {
-    backgroundColor: '#fff', // White background color for login box
-    padding: theme.spacing(4),
-    borderRadius: theme.spacing(1),
-    boxShadow: theme.shadows[5],
-    textAlign: 'center',
-  },
-  welcomeBox: {
-    backgroundColor: 'transparent',
-    padding: theme.spacing(4),
-    textAlign: 'center',
-  },
-  connectButtonContainer: {
-    marginTop: theme.spacing(2),
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%', // Ensure button occupies full width
-  },
-}));
+const RootContainer = styled(Box)`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  background-image: radial-gradient(#c0c0c0 1px, transparent 1px),
+    radial-gradient(#c0c0c0 1px, transparent 1px);
+  background-size: 20px 20px;
+`;
 
-const LoginPage: React.FC = () => {
-  const classes = useStyles();
+const LogoImage = styled('img')`
+  width: 150px;
+  margin-bottom: ${(props) => props.theme.spacing(4)};
+`;
+
+const LoginBox = styled(Container)`
+  background-color: #fff;
+  padding: ${(props) => props.theme.spacing(4)};
+  border-radius: ${(props) => props.theme.spacing(1)};
+  box-shadow: ${(props) => 
+    //@ts-ignore
+    props.theme.shadows[5]};
+  text-align: center;
+`;
+
+const WelcomeBox = styled(Container)`
+  background-color: transparent;
+  padding: ${(props) => props.theme.spacing(4)};
+  text-align: center;
+`;
+
+const ConnectButtonContainer = styled(Box)`
+  margin-top: ${(props) => props.theme.spacing(2)};
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
+const LoginPage = () => {
+  const router = useRouter();
+  const Account = useAccount();
+  useEffect(() => {
+    if (Account.address){
+      router.push('/dashboard');
+    }
+  }, [Account.address]);
 
   return (
-    <div className={classes.root}>
+    <RootContainer>
       {/* Logo and login box components */}
-      <Container maxWidth="xs" className={classes.welcomeBox}>
-      <Typography variant="h3" gutterBottom>
+      <WelcomeBox maxWidth="xs">
+        <Typography variant="h3" gutterBottom>
           Welcome to RPCGo
         </Typography>
-      </Container>
-      <Container maxWidth="xs" className={classes.loginBox}>
-        
+      </WelcomeBox>
+      <LoginBox maxWidth="xs">
         <Typography variant="body1" gutterBottom>
           Please connect your wallet to sign-in or register.
         </Typography>
-        <div className={classes.connectButtonContainer}>
+        <ConnectButtonContainer>
         <w3m-connect-button />
-        </div>
-        </Container>
-    </div>
+        </ConnectButtonContainer>
+      </LoginBox>
+    </RootContainer>
   );
 };
 
