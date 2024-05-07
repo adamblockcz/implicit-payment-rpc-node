@@ -10,7 +10,7 @@ import { PropsWithChildren } from 'react'
 const queryClient = new QueryClient()
 
 // 1. Get projectId at https://cloud.walletconnect.com
-const projectId = 'RpcGo'
+const projectId = '8e69296476a1947583bc9379a38e0b92'
 
 // 2. Create wagmiConfig
 const metadata = {
