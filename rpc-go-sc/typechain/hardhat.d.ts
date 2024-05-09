@@ -20,21 +20,12 @@ declare module "hardhat/types/runtime" {
       name: "RpcGo",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.RpcGo__factory>;
-    getContractFactory(
-      name: "RpcGo",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.RpcGo__factory>;
 
     getContractAt(
       name: "ERC20",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.ERC20>;
-    getContractAt(
-      name: "RpcGo",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.RpcGo>;
     getContractAt(
       name: "RpcGo",
       address: string,

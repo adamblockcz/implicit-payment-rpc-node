@@ -78,19 +78,19 @@ const LeftSideMenu: React.FC = () => {
         onMouseLeave={() => setHovered(false)}
       >
         <List>
-          <ListItem button>
+          <ListItem>
             <ListItemIcon>
               <DashboardIcon/>
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
           </ListItem>
-          <ListItem button>
+          <ListItem>
             <ListItemIcon>
               <PaymentIcon/>
             </ListItemIcon>
             <ListItemText primary="Payments" />
           </ListItem>
-          <ListItem button>
+          <ListItem>
             <ListItemIcon>
               <ChangeCircleIcon/>
             </ListItemIcon>

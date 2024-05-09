@@ -2,6 +2,458 @@
   "version": "3.4",
   "log": [
     {
+      "contracts/RpcGo.sol:IterableMapping": {
+        "src": "contracts/RpcGo.sol:4",
+        "version": {
+          "withMetadata": "86565150dd5a34471d9715f07fb4a87ae331fc6617ba005f6f83fd585d73d8dc",
+          "withoutMetadata": "149e54a4c3d14ff6f7c3c845c226d64d7c06e9077e9401889127f9e4c3f26e33",
+          "linkedWithoutMetadata": "149e54a4c3d14ff6f7c3c845c226d64d7c06e9077e9401889127f9e4c3f26e33"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "get(IterableMapping.Map storage,address)",
+          "getKeyAtIndex(IterableMapping.Map storage,uint256)",
+          "size(IterableMapping.Map storage)",
+          "set(IterableMapping.Map storage,address,uint256)",
+          "remove(IterableMapping.Map storage,address)"
+        ],
+        "linkReferences": [],
+        "errors": [],
+        "layout": {
+          "storage": [],
+          "types": {},
+          "layoutVersion": "1.2",
+          "flat": false,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.19"
+      },
+      "contracts/RpcGo.sol:RpcGo": {
+        "src": "contracts/RpcGo.sol:59",
+        "version": {
+          "withMetadata": "160d225b1bc1f5f464f3d7c2571db5e1f24aa08209dcbbfd660803996bf10de7",
+          "withoutMetadata": "b52b087795b10804f4a941ef163264ca4a40af2ccea2957515b4268dd2e306af",
+          "linkedWithoutMetadata": "b52b087795b10804f4a941ef163264ca4a40af2ccea2957515b4268dd2e306af"
+        },
+        "inherit": [],
+        "libraries": [
+          "contracts/RpcGo.sol:IterableMapping"
+        ],
+        "methods": [
+          "()",
+          "submitTransaction(address,uint256,bytes)",
+          "deposit()",
+          "withdrawBalance(uint256)",
+          "withdrawRemainingBalance()",
+          "transferAccount(address,uint256)",
+          "ownerWithdrawAmount(uint256)",
+          "ownerWithdraw()"
+        ],
+        "linkReferences": [
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 977,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          },
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 1107,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          },
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 1221,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          },
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 1442,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          },
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 1626,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          },
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 1853,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          },
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 1978,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          },
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 2140,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          },
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 2700,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          },
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 2798,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          },
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 3012,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          },
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 3142,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          },
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 3387,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          },
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 3520,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          },
+          {
+            "src": "contracts/RpcGo.sol",
+            "name": "IterableMapping",
+            "length": 20,
+            "start": 3654,
+            "placeholder": "__$28d2455bd764ba806e1ab599ce1a0785f1$__"
+          }
+        ],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "RpcGo",
+            "src": "contracts/RpcGo.sol:73"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "feeAmount",
+            "src": "contracts/RpcGo.sol:71"
+          },
+          {
+            "kind": "external-library-linking",
+            "name": "IterableMapping",
+            "src": "contracts/RpcGo.sol"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "accounts",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_struct(Map)17_storage",
+              "contract": "RpcGo",
+              "src": "contracts/RpcGo.sol:69"
+            },
+            {
+              "label": "owner",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_address",
+              "contract": "RpcGo",
+              "src": "contracts/RpcGo.sol:70"
+            },
+            {
+              "label": "feeAmount",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_uint256",
+              "contract": "RpcGo",
+              "src": "contracts/RpcGo.sol:71"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_array(t_address)dyn_storage": {
+              "label": "address[]",
+              "numberOfBytes": "32"
+            },
+            "t_bool": {
+              "label": "bool",
+              "numberOfBytes": "1"
+            },
+            "t_mapping(t_address,t_bool)": {
+              "label": "mapping(address => bool)",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_struct(Map)17_storage": {
+              "label": "struct IterableMapping.Map",
+              "members": [
+                {
+                  "label": "keys",
+                  "type": "t_array(t_address)dyn_storage",
+                  "offset": 0,
+                  "slot": "0"
+                },
+                {
+                  "label": "values",
+                  "type": "t_mapping(t_address,t_uint256)",
+                  "offset": 0,
+                  "slot": "1"
+                },
+                {
+                  "label": "indexOf",
+                  "type": "t_mapping(t_address,t_uint256)",
+                  "offset": 0,
+                  "slot": "2"
+                },
+                {
+                  "label": "inserted",
+                  "type": "t_mapping(t_address,t_bool)",
+                  "offset": 0,
+                  "slot": "3"
+                }
+              ],
+              "numberOfBytes": "128"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.19"
+      }
+    },
+    {
+      "contracts/ERC20.sol:ERC20": {
+        "src": "contracts/ERC20.sol:4",
+        "version": {
+          "withMetadata": "65cae1c69a0e5238cfe885bed9438e0c2f94edca057ff35d70c1334ced4be6c8",
+          "withoutMetadata": "3d5c2dad5d88b71a657b0687e5859523f91b724cdf9c6f61b92002cc22d5b686",
+          "linkedWithoutMetadata": "3d5c2dad5d88b71a657b0687e5859523f91b724cdf9c6f61b92002cc22d5b686"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "balanceOf(address)",
+          "allowance(address,address)",
+          "transfer(address,uint256)",
+          "approve(address,uint256)",
+          "transferFrom(address,address,uint256)",
+          "()"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "ERC20",
+            "src": "contracts/ERC20.sol:54"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "decimals",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_uint8",
+              "contract": "ERC20",
+              "src": "contracts/ERC20.sol:5"
+            },
+            {
+              "label": "totalSupply",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_uint256",
+              "contract": "ERC20",
+              "src": "contracts/ERC20.sol:6"
+            },
+            {
+              "label": "name",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_string_storage",
+              "contract": "ERC20",
+              "src": "contracts/ERC20.sol:8"
+            },
+            {
+              "label": "symbol",
+              "offset": 0,
+              "slot": "3",
+              "type": "t_string_storage",
+              "contract": "ERC20",
+              "src": "contracts/ERC20.sol:9"
+            },
+            {
+              "label": "_balances",
+              "offset": 0,
+              "slot": "4",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "ERC20",
+              "src": "contracts/ERC20.sol:11"
+            },
+            {
+              "label": "_allowances",
+              "offset": 0,
+              "slot": "5",
+              "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+              "contract": "ERC20",
+              "src": "contracts/ERC20.sol:12"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+              "label": "mapping(address => mapping(address => uint256))",
+              "numberOfBytes": "32"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_string_storage": {
+              "label": "string",
+              "numberOfBytes": "32"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            },
+            "t_uint8": {
+              "label": "uint8",
+              "numberOfBytes": "1"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.19"
+      }
+    },
+    {
+      "contracts/RpcGo.sol:RpcGo": {
+        "src": "contracts/RpcGo.sol:4",
+        "version": {
+          "withMetadata": "0dd31a9ed3bbcccd69a5cdb4965a70909c4d7097b7da6b9beefc2a812e4513b4",
+          "withoutMetadata": "158f881119f7a533b678c2f8c348f85f42e4dc5ecd5fdba96658395bc2244525",
+          "linkedWithoutMetadata": "158f881119f7a533b678c2f8c348f85f42e4dc5ecd5fdba96658395bc2244525"
+        },
+        "inherit": [],
+        "libraries": [],
+        "methods": [
+          "()",
+          "submitTransaction(address,uint256,bytes)",
+          "deposit()",
+          "withdrawBalance()",
+          "transfer(address,uint256)",
+          "ownerWithdraw()"
+        ],
+        "linkReferences": [],
+        "errors": [
+          {
+            "kind": "constructor",
+            "contract": "RpcGo",
+            "src": "contracts/RpcGo.sol:16"
+          },
+          {
+            "kind": "state-variable-assignment",
+            "name": "feeAmount",
+            "src": "contracts/RpcGo.sol:14"
+          }
+        ],
+        "layout": {
+          "storage": [
+            {
+              "label": "accounts",
+              "offset": 0,
+              "slot": "0",
+              "type": "t_mapping(t_address,t_uint256)",
+              "contract": "RpcGo",
+              "src": "contracts/RpcGo.sol:12"
+            },
+            {
+              "label": "owner",
+              "offset": 0,
+              "slot": "1",
+              "type": "t_address",
+              "contract": "RpcGo",
+              "src": "contracts/RpcGo.sol:13"
+            },
+            {
+              "label": "feeAmount",
+              "offset": 0,
+              "slot": "2",
+              "type": "t_uint256",
+              "contract": "RpcGo",
+              "src": "contracts/RpcGo.sol:14"
+            }
+          ],
+          "types": {
+            "t_address": {
+              "label": "address",
+              "numberOfBytes": "20"
+            },
+            "t_mapping(t_address,t_uint256)": {
+              "label": "mapping(address => uint256)",
+              "numberOfBytes": "32"
+            },
+            "t_uint256": {
+              "label": "uint256",
+              "numberOfBytes": "32"
+            }
+          },
+          "layoutVersion": "1.2",
+          "flat": true,
+          "namespaces": {}
+        },
+        "solcVersion": "0.8.19"
+      }
+    },
+    {
       "contracts/RpcGo.sol:RpcGo": {
         "src": "contracts/RpcGo.sol:5",
         "version": {

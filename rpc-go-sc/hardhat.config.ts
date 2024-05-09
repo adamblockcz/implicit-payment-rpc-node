@@ -41,12 +41,13 @@ const config: HardhatUserConfig = {
     }
   },
   networks: {
-    rinkeby: {
+    holesky: {
       url: "https://ethereum-holesky-rpc.publicnode.com",
       chainId: 17000,
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
+    
     hardhat: {
       // forking: {
       //   url: process.env.NODE_URI !== undefined ? process.env.NODE_URI : '',
@@ -70,6 +71,8 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
+      // holesky network
+      holesky: process.env.ETHERSCAN_API_KEY,
       // ethereum mainnet
       mainnet: process.env.ETHERSCAN_API_KEY || '',
       goerli: process.env.ETHERSCAN_API_KEY || '',
@@ -82,7 +85,6 @@ const config: HardhatUserConfig = {
       polygonMumbai: process.env.POLYGONSCAN_API_KEY || '',
       // arbitrum
       arbitrumOne: process.env.ARBISCAN_API_KEY || '',
-      arbitrumNova: process.env.ARBISCAN_API_KEY || '',
       arbitrumSepolia: process.env.ARBISCAN_API_KEY || '',
       // avalanche
       avalanche: process.env.SNOWTRACE_API_KEY || '',
@@ -95,6 +97,14 @@ const config: HardhatUserConfig = {
       baseGoerli: process.env.BASESCAN_API_KEY || '',
     },
     customChains: [
+      {
+        network: "holesky",
+        chainId: 17000,
+        urls: {
+          apiURL: "https://api-holesky.etherscan.io/api",
+          browserURL: "https://holesky.etherscan.io"
+        }
+      },
       {
         network: "arbitrumSepolia",
         chainId: 421614,

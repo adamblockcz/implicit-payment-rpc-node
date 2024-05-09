@@ -11,6 +11,7 @@ import {
   PopulatedTransaction,
   BaseContract,
   ContractTransaction,
+  Overrides,
   PayableOverrides,
   CallOverrides,
 } from "ethers";
@@ -21,42 +22,108 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface RpcGoInterface extends ethers.utils.Interface {
   functions: {
+    "deposit()": FunctionFragment;
+    "ownerWithdraw()": FunctionFragment;
+    "ownerWithdrawAmount(uint256)": FunctionFragment;
     "submitTransaction(address,uint256,bytes)": FunctionFragment;
+    "transferAccount(address,uint256)": FunctionFragment;
+    "withdrawBalance(uint256)": FunctionFragment;
+    "withdrawRemainingBalance()": FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "ownerWithdraw",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "ownerWithdrawAmount",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(
     functionFragment: "submitTransaction",
     values: [string, BigNumberish, BytesLike]
   ): string;
+  encodeFunctionData(
+    functionFragment: "transferAccount",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "withdrawBalance",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "withdrawRemainingBalance",
+    values?: undefined
+  ): string;
 
+  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "ownerWithdraw",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "ownerWithdrawAmount",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "submitTransaction",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "transferAccount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "withdrawBalance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "withdrawRemainingBalance",
     data: BytesLike
   ): Result;
 
   events: {
     "ExecuteTransaction(address,address,uint256,bytes)": EventFragment;
     "LogData(bytes)": EventFragment;
+    "OwnerWithdraw(uint256)": EventFragment;
     "RevertReason(string)": EventFragment;
+    "TransferAccount(address,address,uint256)": EventFragment;
+    "Withdraw(address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "ExecuteTransaction"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "LogData"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "OwnerWithdraw"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RevertReason"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "TransferAccount"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Withdraw"): EventFragment;
 }
 
 export type ExecuteTransactionEvent = TypedEvent<
   [string, string, BigNumber, string] & {
     from: string;
     to: string;
-    _value: BigNumber;
-    _data: string;
+    value: BigNumber;
+    data: string;
   }
 >;
 
 export type LogDataEvent = TypedEvent<[string] & { data: string }>;
 
+export type OwnerWithdrawEvent = TypedEvent<
+  [BigNumber] & { amount: BigNumber }
+>;
+
 export type RevertReasonEvent = TypedEvent<[string] & { reason: string }>;
+
+export type TransferAccountEvent = TypedEvent<
+  [string, string, BigNumber] & { from: string; to: string; amount: BigNumber }
+>;
+
+export type WithdrawEvent = TypedEvent<
+  [string, BigNumber] & { account: string; amount: BigNumber }
+>;
 
 export class RpcGo extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -102,77 +169,253 @@ export class RpcGo extends BaseContract {
   interface: RpcGoInterface;
 
   functions: {
-    submitTransaction(
-      _to: string,
-      _value: BigNumberish,
-      _data: BytesLike,
+    deposit(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    ownerWithdraw(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    ownerWithdrawAmount(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    submitTransaction(
+      to: string,
+      value: BigNumberish,
+      data: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    transferAccount(
+      to: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    withdrawBalance(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    withdrawRemainingBalance(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
-  submitTransaction(
-    _to: string,
-    _value: BigNumberish,
-    _data: BytesLike,
+  deposit(
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  ownerWithdraw(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  ownerWithdrawAmount(
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  submitTransaction(
+    to: string,
+    value: BigNumberish,
+    data: BytesLike,
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  transferAccount(
+    to: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  withdrawBalance(
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  withdrawRemainingBalance(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
-    submitTransaction(
-      _to: string,
-      _value: BigNumberish,
-      _data: BytesLike,
+    deposit(overrides?: CallOverrides): Promise<void>;
+
+    ownerWithdraw(overrides?: CallOverrides): Promise<void>;
+
+    ownerWithdrawAmount(
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    submitTransaction(
+      to: string,
+      value: BigNumberish,
+      data: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    transferAccount(
+      to: string,
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    withdrawBalance(
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    withdrawRemainingBalance(overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
     "ExecuteTransaction(address,address,uint256,bytes)"(
       from?: string | null,
       to?: string | null,
-      _value?: null,
-      _data?: null
+      value?: null,
+      data?: null
     ): TypedEventFilter<
       [string, string, BigNumber, string],
-      { from: string; to: string; _value: BigNumber; _data: string }
+      { from: string; to: string; value: BigNumber; data: string }
     >;
 
     ExecuteTransaction(
       from?: string | null,
       to?: string | null,
-      _value?: null,
-      _data?: null
+      value?: null,
+      data?: null
     ): TypedEventFilter<
       [string, string, BigNumber, string],
-      { from: string; to: string; _value: BigNumber; _data: string }
+      { from: string; to: string; value: BigNumber; data: string }
     >;
 
     "LogData(bytes)"(data?: null): TypedEventFilter<[string], { data: string }>;
 
     LogData(data?: null): TypedEventFilter<[string], { data: string }>;
 
+    "OwnerWithdraw(uint256)"(
+      amount?: null
+    ): TypedEventFilter<[BigNumber], { amount: BigNumber }>;
+
+    OwnerWithdraw(
+      amount?: null
+    ): TypedEventFilter<[BigNumber], { amount: BigNumber }>;
+
     "RevertReason(string)"(
       reason?: null
     ): TypedEventFilter<[string], { reason: string }>;
 
     RevertReason(reason?: null): TypedEventFilter<[string], { reason: string }>;
+
+    "TransferAccount(address,address,uint256)"(
+      from?: string | null,
+      to?: string | null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, string, BigNumber],
+      { from: string; to: string; amount: BigNumber }
+    >;
+
+    TransferAccount(
+      from?: string | null,
+      to?: string | null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, string, BigNumber],
+      { from: string; to: string; amount: BigNumber }
+    >;
+
+    "Withdraw(address,uint256)"(
+      account?: string | null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { account: string; amount: BigNumber }
+    >;
+
+    Withdraw(
+      account?: string | null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { account: string; amount: BigNumber }
+    >;
   };
 
   estimateGas: {
-    submitTransaction(
-      _to: string,
-      _value: BigNumberish,
-      _data: BytesLike,
+    deposit(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    ownerWithdraw(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    ownerWithdrawAmount(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    submitTransaction(
+      to: string,
+      value: BigNumberish,
+      data: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    transferAccount(
+      to: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    withdrawBalance(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    withdrawRemainingBalance(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    submitTransaction(
-      _to: string,
-      _value: BigNumberish,
-      _data: BytesLike,
+    deposit(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    ownerWithdraw(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    ownerWithdrawAmount(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    submitTransaction(
+      to: string,
+      value: BigNumberish,
+      data: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    transferAccount(
+      to: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    withdrawBalance(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    withdrawRemainingBalance(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }
