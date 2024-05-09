@@ -9,6 +9,7 @@ describe("RpcGo contract", function () {
   let rpcGo: any;
   let ERC20: any;
   let erc20: any;
+  let iterableMapping: any;
 
   let owner: any;
   let addr1: any;
@@ -19,38 +20,36 @@ describe("RpcGo contract", function () {
 
   beforeEach(async () => {
     [owner, addr1, addr2, ...addrs] = await ethers.getSigners();
-    RpcGo = await ethers.getContractFactory("RpcGo");
-    rpcGo = await RpcGo.deploy();
 
+    const IterableMappingFactory = await ethers.getContractFactory("IterableMapping");
+    iterableMapping = await IterableMappingFactory.deploy();
+    RpcGo = await ethers.getContractFactory("RpcGo", {
+      libraries: {
+        IterableMapping: iterableMapping.address,
+      },
+    });
+    rpcGo = await RpcGo.deploy();
     ERC20 = await ethers.getContractFactory("ERC20");
     erc20 = await ERC20.deploy();
-
-    // Mint some tokens for the owner
-    await erc20.mint(owner.address, ethers.utils.parseEther("100"));
-
-    // Approve RpcGo contract to spend owner's tokens
-    await erc20.connect(owner).approve(rpcGo.address, ethers.constants.MaxUint256);
   });
 
   it("should deposit ETH into the contract", async () => {
     await rpcGo.deposit({ value: ONE_ETHER });
 
-    expect(await rpcGo.getTotalAccountsBalance()).to.equal(ONE_ETHER);
+    expect(await rpcGo.getAccountBalance(owner.address)).to.equal(ONE_ETHER);
   });
 
   it("should withdraw ETH from the contract", async () => {
     await rpcGo.deposit({ value: ONE_ETHER });
     await rpcGo.withdrawBalance(ONE_ETHER.div(2));
 
-    expect(await rpcGo.getTotalAccountsBalance()).to.equal(ONE_ETHER.div(2));
+    expect(await rpcGo.getAccountBalance(owner.address)).to.equal(ONE_ETHER.div(2));
   });
 
   it("should transfer tokens between accounts", async () => {
-    const initialBalance = ethers.utils.parseEther("100");
     await rpcGo.deposit({ value: ONE_ETHER });
     await rpcGo.transferAccount(addr1.address, ONE_ETHER.div(2));
-
-    expect(await rpcGo.getTotalAccountsBalance(addr1.address)).to.equal(ONE_ETHER.div(2));
+    expect(await rpcGo.getAccountBalance(addr1.address)).to.equal(ONE_ETHER.div(2));
   });
 
   it("should allow owner to withdraw funds from the contract", async () => {

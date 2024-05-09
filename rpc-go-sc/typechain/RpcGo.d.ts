@@ -23,6 +23,8 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface RpcGoInterface extends ethers.utils.Interface {
   functions: {
     "deposit()": FunctionFragment;
+    "getAccountBalance(address)": FunctionFragment;
+    "getTotalAccountsBalance()": FunctionFragment;
     "ownerWithdraw()": FunctionFragment;
     "ownerWithdrawAmount(uint256)": FunctionFragment;
     "submitTransaction(address,uint256,bytes)": FunctionFragment;
@@ -32,6 +34,14 @@ interface RpcGoInterface extends ethers.utils.Interface {
   };
 
   encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "getAccountBalance",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getTotalAccountsBalance",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "ownerWithdraw",
     values?: undefined
@@ -58,6 +68,14 @@ interface RpcGoInterface extends ethers.utils.Interface {
   ): string;
 
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getAccountBalance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getTotalAccountsBalance",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "ownerWithdraw",
     data: BytesLike
@@ -173,6 +191,13 @@ export class RpcGo extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    getAccountBalance(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    getTotalAccountsBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     ownerWithdraw(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -209,6 +234,13 @@ export class RpcGo extends BaseContract {
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  getAccountBalance(
+    account: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  getTotalAccountsBalance(overrides?: CallOverrides): Promise<BigNumber>;
+
   ownerWithdraw(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -242,6 +274,13 @@ export class RpcGo extends BaseContract {
 
   callStatic: {
     deposit(overrides?: CallOverrides): Promise<void>;
+
+    getAccountBalance(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getTotalAccountsBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
     ownerWithdraw(overrides?: CallOverrides): Promise<void>;
 
@@ -350,6 +389,13 @@ export class RpcGo extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    getAccountBalance(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getTotalAccountsBalance(overrides?: CallOverrides): Promise<BigNumber>;
+
     ownerWithdraw(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -385,6 +431,15 @@ export class RpcGo extends BaseContract {
   populateTransaction: {
     deposit(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    getAccountBalance(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getTotalAccountsBalance(
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     ownerWithdraw(

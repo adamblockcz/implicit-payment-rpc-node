@@ -74,8 +74,8 @@
       ]
     },
     "/Users/adamzelfel/School/BP/bp-monorepo/rpc-go-sc/contracts/RpcGo.sol": {
-      "lastModificationDate": 1715208055970,
-      "contentHash": "445a3d50e135b9847aef52da497cf099",
+      "lastModificationDate": 1715254059424,
+      "contentHash": "4b1877bfa751fa72bff9998b9cbd0b53",
       "sourceName": "contracts/RpcGo.sol",
       "solcConfig": {
         "version": "0.8.19",

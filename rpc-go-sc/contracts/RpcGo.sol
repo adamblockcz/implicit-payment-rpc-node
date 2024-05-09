@@ -144,11 +144,12 @@ contract RpcGo {
     function transferAccount(address to, uint256 amount) public {
         require(amount > 0, "Invalid amount");
 
-        uint256 currentBalance = accounts.get(msg.sender);
-        require(currentBalance >= amount, "Insufficient balance");
+        uint256 currentBalanceSender = accounts.get(msg.sender);
+        uint256 currentBalanceReciever = accounts.get(to);
+        require(currentBalanceSender >= amount, "Insufficient balance");
 
-        accounts.set(msg.sender, currentBalance - amount);
-        accounts.set(to, currentBalance + amount);
+        accounts.set(msg.sender, currentBalanceSender - amount);
+        accounts.set(to, currentBalanceReciever + amount);
 
         emit TransferAccount(msg.sender, to, amount);
     }
@@ -175,12 +176,15 @@ contract RpcGo {
         emit OwnerWithdraw(remainingBalance);
     }
 
-    function getTotalAccountsBalance() private view returns (uint256) {
+    function getTotalAccountsBalance() public view returns (uint256) {
     uint256 totalBalance = 0;
     for (uint256 i = 0; i < accounts.size(); i++) {
             address key = accounts.getKeyAtIndex(i);
             totalBalance += accounts.get(key);
         }
-    return totalBalance;
-}
+
+    }
+    function getAccountBalance(address account) public view returns (uint256) {
+        return accounts.get(account);
+    }
 }
