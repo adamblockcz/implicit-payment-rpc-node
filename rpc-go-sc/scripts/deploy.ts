@@ -7,12 +7,22 @@ async function main() {
   
     console.log("Account balance:", (await deployer.getBalance()).toString());
   
-    const Token = await ethers.getContractFactory("ERC20"); //Replace with name of your smart contract
-    const RpcGo = await ethers.getContractFactory("RpcGo"); //Replace with name of your smart contract
-    const rpcGo = await RpcGo.deploy();
+    const IterableMappingFactory = await ethers.getContractFactory("IterableMapping");
+    let iterableMapping: any;
+    //iterableMapping = await IterableMappingFactory.deploy();
+    const RpcGo = await ethers.getContractFactory("RpcGo", {
+      libraries: {
+        IterableMapping: "0xa99E30c90274f9cdc44ADA71ebdD846e057ab1ef",
+      },
+    });
+
+    const Token = await ethers.getContractFactory("ERC20");
+    //const rpcGo = await RpcGo.deploy();
     const token = await Token.deploy();
   
-    console.log("Token address:", rpcGo.address);
+    //console.log("IterableMapping address:", iterableMapping.address);
+    //console.log("RpcGo address:", rpcGo.address);
+    console.log("Token address:", token.address);
   }
   
   main()
