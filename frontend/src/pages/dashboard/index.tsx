@@ -1,4 +1,6 @@
 import { LoggedInVerifier } from '@/components/LoggedInVerifier';
+import LeftSideMenu from '@/components/Dashboard/LeftSideMenu';
+import TopSideMenu from '@/components/Dashboard/TopSideMenu';
 
 import React, { useState } from "react";
 import { Box } from "@mui/material";
@@ -17,14 +19,19 @@ const RootContainer = styled(Box)`
     radial-gradient(#c0c0c0 1px, transparent 1px);
   background-size: 20px 20px;
 `;
+const Dashboard: React.FC = () => {
+const [open, setOpen] = useState(false);
+const [closed, setClosed] = useState(true);
 
-const LeftSideMenu: React.FC = () => {
+
+
   return (
     <RootContainer>
     <LoggedInVerifier />
-    <LeftSideMenu />
+    <TopSideMenu />
+    <LeftSideMenu open={open} setOpen={setOpen} closed={closed} setClosed={setClosed} variant="permanent"/>
     </RootContainer>
   );
 };
 
-export default LeftSideMenu;
+export default Dashboard;

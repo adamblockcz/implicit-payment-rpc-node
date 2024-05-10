@@ -1,87 +1,107 @@
-import React, { useState } from "react";
-import { makeStyles } from "@mui/styles";
-import { Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import { styled } from '@mui/system';
+import { Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Box } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PaymentIcon from '@mui/icons-material/Payment';
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 
-const drawerWidth = 240;
+interface LeftSideMenuProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  closed: boolean;
+  setClosed: React.Dispatch<React.SetStateAction<boolean>>;
+  variant: "permanent" | "temporary" | "persistent";
+}
 
-const SideDrawer = styled(Drawer)`
-  width: ${drawerWidth}px;
-  background: blue;
-  flexShrink: 0;
+const drawerWidth = 240;
+const closedDrawerWidth = 60; // Adjust the width when closed
+
+const DrawerContainer = styled(Drawer)<{ open: boolean }>`
+  width: ${({ open }) => (open ? `${drawerWidth}px` : `${closedDrawerWidth}px`)};
+  flex-shrink: 0;
 `;
 
-const useStyles = makeStyles((theme) => ({
-  drawerPaper: {
-    width: drawerWidth,
-    background: '#2196f3',
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClosed: {
-    width: theme.spacing(7),
-    background: '#2196f3',
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  toolbar: theme.mixins.toolbar,
-}));
+const DrawerPaper = styled(Box)<{ open: boolean }>`
+  width: ${({ open }) => (open ? `${drawerWidth}px` : `${closedDrawerWidth}px`)};
+  height: 100%;
+  background: #2196f3;
+  transition: width 0.3s ease; /* Smooth transition when opening/closing */
+`;
 
-const LeftSideMenu: React.FC = () => {
-  const classes = useStyles();
-  const [open, setOpen] = useState(true);
-  const [hovered, setHovered] = useState(false);
+const StyledToolbar = styled(Box)`
+  ${({ theme }) => theme.mixins.toolbar};
+`;
 
+const StyledListItem = styled(ListItem)`
+  margin-bottom: 14px; /* Adjust the spacing between buttons */
+`;
+
+const ListItemIconWrapper = styled(ListItemIcon)`
+  color: #fff;
+  transform: scale(1.3); /* Adjust the scale factor to make icons bigger or smaller */
+
+`;
+
+const ListItemTextWrapper = styled(ListItemText)<{ open: boolean }>`
+  color: #fff;
+  display: ${({ open }) => (open ? 'block' : 'none')};
+`;
+
+const LeftSideMenu: React.FC<LeftSideMenuProps> = ({ open, closed, setOpen, setClosed, variant }) => {
   const toggleDrawer = () => {
-    setOpen(!open);
+    setClosed(!closed); 
+    if (!closed && open){
+      setOpen(false);
+    }
+    console.log("open set to " + open);
+    console.log("closed set to " + closed);
+  };
+
+  const handleMouseEnter = () => {
+  setOpen(true);
+  console.log("open set to " + open);
+  console.log("closed set to " + closed);
+  };
+
+  const handleMouseLeave = () => {
+    if (closed){
+      setOpen(false);
+      }
+
+    console.log("open set to " + open);
+    console.log("closed set to " + closed);
   };
 
   return (
-    <SideDrawer
-      variant="permanent"
-      classes={{
-        paper: open ? classes.drawerPaper : classes.drawerPaperClosed,
-      }}
-    >
-      <div className={classes.toolbar}>
-        <IconButton onClick={toggleDrawer}>
-          <MenuIcon />
-        </IconButton>
-      </div>
-      <div
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
+    <DrawerContainer variant={variant} open={open} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <DrawerPaper open={open}>
+        <StyledToolbar>
+          <IconButton onClick={toggleDrawer}>
+            <MenuIcon />
+          </IconButton>
+        </StyledToolbar>
         <List>
-          <ListItem>
-            <ListItemIcon>
-              <DashboardIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <PaymentIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Payments" />
-          </ListItem>
-          <ListItem>
-            <ListItemIcon>
-              <ChangeCircleIcon/>
-            </ListItemIcon>
-            <ListItemText primary="Migrate account"/>
-          </ListItem>
+          <StyledListItem button>
+            <ListItemIconWrapper>
+              <DashboardIcon />
+            </ListItemIconWrapper>
+            <ListItemTextWrapper open={open} primary="Dashboard" />
+          </StyledListItem>
+          <StyledListItem button>
+            <ListItemIconWrapper>
+              <PaymentIcon />
+            </ListItemIconWrapper>
+            <ListItemTextWrapper open={open} primary="Payments" />
+          </StyledListItem>
+          <StyledListItem button>
+            <ListItemIconWrapper>
+              <ChangeCircleIcon />
+            </ListItemIconWrapper>
+            <ListItemTextWrapper open={open} primary="Migrate account" />
+          </StyledListItem>
         </List>
-      </div>
-    </SideDrawer>
+      </DrawerPaper>
+    </DrawerContainer>
   );
 };
 
