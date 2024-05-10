@@ -5,6 +5,8 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import PaymentIcon from '@mui/icons-material/Payment';
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 
+import { useRouter } from 'next/router';
+
 interface LeftSideMenuProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -48,6 +50,9 @@ const ListItemTextWrapper = styled(ListItemText)<{ open: boolean }>`
 `;
 
 const LeftSideMenu: React.FC<LeftSideMenuProps> = ({ open, closed, setOpen, setClosed, variant }) => {
+  
+  const router = useRouter();
+
   const toggleDrawer = () => {
     setClosed(!closed); 
     if (!closed && open){
@@ -72,6 +77,10 @@ const LeftSideMenu: React.FC<LeftSideMenuProps> = ({ open, closed, setOpen, setC
     console.log("closed set to " + closed);
   };
 
+  const navigateTo = (path: string) => {
+    router.push(path);
+  };
+
   return (
     <DrawerContainer variant={variant} open={open} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <DrawerPaper open={open}>
@@ -81,19 +90,19 @@ const LeftSideMenu: React.FC<LeftSideMenuProps> = ({ open, closed, setOpen, setC
           </IconButton>
         </StyledToolbar>
         <List>
-          <StyledListItem button>
+          <StyledListItem button onClick={() => navigateTo('/dashboard')}>
             <ListItemIconWrapper>
               <DashboardIcon />
             </ListItemIconWrapper>
             <ListItemTextWrapper open={open} primary="Dashboard" />
           </StyledListItem>
-          <StyledListItem button>
+          <StyledListItem button onClick={() => navigateTo('/payments')}>
             <ListItemIconWrapper>
               <PaymentIcon />
             </ListItemIconWrapper>
             <ListItemTextWrapper open={open} primary="Payments" />
           </StyledListItem>
-          <StyledListItem button>
+          <StyledListItem button onClick={() => navigateTo('/migration')}>
             <ListItemIconWrapper>
               <ChangeCircleIcon />
             </ListItemIconWrapper>

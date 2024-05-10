@@ -19,7 +19,7 @@ const Dashboard: React.FC = () => {
   return (
     <RootContainer>
         <Menus></Menus>
-        Dashboard
+        Payments
     </RootContainer>
   );
 };

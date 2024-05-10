@@ -26,5 +26,6 @@ const theme = createTheme({
 });
 
 export default function App( props: AppProps) {
+
   return <AppCacheProvider {...props}><ThemeProvider theme={theme}><Web3ModalProvider><props.Component {...props.pageProps} /></Web3ModalProvider></ThemeProvider></AppCacheProvider>;
 }
