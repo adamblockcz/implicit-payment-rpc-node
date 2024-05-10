@@ -1,27 +1,43 @@
-import React, { useState } from "react";
-import { Box } from "@mui/material";
-import { styled } from '@mui/system';
-import Menus from '@/components/Dashboard/Menus';
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Unstable_Grid2';
+import { Typography } from '@mui/material';
+import TransactionsMade from '@/components/DashboardComponents/TransactionsMade';
+import AccountBalance from '@/components/DashboardComponents/AccountBalance';
 
-const RootContainer = styled(Box)`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
-  background-image: radial-gradient(#c0c0c0 1px, transparent 1px),
-    radial-gradient(#c0c0c0 1px, transparent 1px);
-  background-size: 20px 20px;
-`;
-const Dashboard: React.FC = () => {
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
+export default function Dashboard() {
   return (
-    <RootContainer>
-        <Menus></Menus>
-        Dashboard
-    </RootContainer>
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        <Grid xs={4}>
+          <Item>
+            <Typography>Transactions Made</Typography>
+              <TransactionsMade/>
+          </Item>
+        </Grid>
+        <Grid xs={4}>
+          <Item>
+            <Typography>Account Balance</Typography>
+             <AccountBalance/>
+          </Item>
+        </Grid>
+        <Grid xs={4}>
+          <Item>
+            <Typography>Current Spend</Typography>
+            {/* Add content for CurrentSpend component */}
+          </Item>
+        </Grid>
+      </Grid>
+    </Box>
   );
-};
-
-export default Dashboard;
+}

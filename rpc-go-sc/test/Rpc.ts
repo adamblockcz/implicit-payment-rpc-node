@@ -52,15 +52,14 @@ describe("RpcGo contract", function () {
     expect(await rpcGo.getAccountBalance(addr1.address)).to.equal(ONE_ETHER.div(2));
   });
 
-  it("should allow owner to withdraw funds from the contract", async () => {
+  it("should not allow owner to withdraw funds from the contract if not used by user", async () => {
     const initialBalance = ethers.utils.parseEther("100");
     await rpcGo.deposit({ value: ONE_ETHER });
 
     const ownerBalanceBefore = await owner.getBalance();
-    await rpcGo.ownerWithdraw();
-
-    expect(await rpcGo.getTotalAccountsBalance()).to.equal(0);
-    expect(await owner.getBalance()).to.be.gt(ownerBalanceBefore);
+    await expect(rpcGo.ownerWithdraw()).to.be.revertedWith('No remaining balance to withdraw');
+    expect(await rpcGo.getTotalAccountsBalance()).to.equal(ONE_ETHER);
+    expect(await owner.getBalance()).to.be.lte(ownerBalanceBefore);
   });
 
   it("should fail if non-owner tries to withdraw funds from the contract", async () => {

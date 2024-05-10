@@ -182,7 +182,7 @@ contract RpcGo {
             address key = accounts.getKeyAtIndex(i);
             totalBalance += accounts.get(key);
         }
-
+    return totalBalance;
     }
     function getAccountBalance(address account) public view returns (uint256) {
         return accounts.get(account);

@@ -17,12 +17,12 @@ async function main() {
     });
 
     const Token = await ethers.getContractFactory("ERC20");
-    //const rpcGo = await RpcGo.deploy();
-    const token = await Token.deploy();
+    const rpcGo = await RpcGo.deploy();
+    //const token = await Token.deploy();
   
     //console.log("IterableMapping address:", iterableMapping.address);
-    //console.log("RpcGo address:", rpcGo.address);
-    console.log("Token address:", token.address);
+    console.log("RpcGo address:", rpcGo.address);
+    //console.log("Token address:", token.address);
   }
   
   main()

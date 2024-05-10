@@ -1,9 +1,9 @@
-import React from 'react';
-import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { styled } from '@mui/system';
-import { useAccount, useDisconnect } from 'wagmi';
-import { disconnect } from '@wagmi/core';
+import React from "react";
+import { IconButton, Menu, MenuItem, Typography } from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { styled } from "@mui/system";
+import { useAccount, useDisconnect } from "wagmi";
+import { disconnect } from "@wagmi/core";
 
 const ProfileButton = styled(IconButton)`
   display: flex;
@@ -11,10 +11,10 @@ const ProfileButton = styled(IconButton)`
 `;
 
 const ProfileMenu: React.FC = () => {
-  const { address, isConnecting, isDisconnected} = useAccount();
+  const { address, isConnecting, isDisconnected } = useAccount();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { disconnect } = useDisconnect()
-  
+  const { disconnect } = useDisconnect();
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -29,7 +29,7 @@ const ProfileMenu: React.FC = () => {
   };
 
   return (
-    <div>
+    <div style={{ marginLeft: "auto" }}>
       <ProfileButton
         aria-controls="profile-menu"
         aria-haspopup="true"
@@ -37,8 +37,11 @@ const ProfileMenu: React.FC = () => {
         color="inherit"
       >
         <AccountCircleIcon />
-        <Typography variant="body2" style={{ marginLeft: '0.5rem' }}>
-        {address && `${address.substring(0, 6)}...${address.substring(address.length - 6)}`}
+        <Typography variant="body2" style={{ marginLeft: "0.5rem" }}>
+          {address &&
+            `${address.substring(0, 6)}...${address.substring(
+              address.length - 6
+            )}`}
         </Typography>
       </ProfileButton>
       <Menu

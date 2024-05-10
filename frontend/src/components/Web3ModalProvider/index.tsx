@@ -5,6 +5,10 @@ import { WagmiProvider } from 'wagmi'
 import { holesky, mainnet } from 'wagmi/chains'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { PropsWithChildren } from 'react'
+import { RpcGoABI } from '@/abi/RpcGoABI'
+
+const provider = process.env.PROVIDER;
+const rpcGoContractAddress = process.env.RPC_GO_CONTRACT_ADDRESS
 
 // 0. Setup queryClient
 const queryClient = new QueryClient()
@@ -27,6 +31,13 @@ export const config = defaultWagmiConfig({
   metadata,
   ssr: true
 })
+
+export const rpcGoContractConfig = {
+  contractAddress: rpcGoContractAddress,
+  abi: RpcGoABI,
+  provider: provider,
+};
+
 
 // 3. Create modal
 createWeb3Modal({

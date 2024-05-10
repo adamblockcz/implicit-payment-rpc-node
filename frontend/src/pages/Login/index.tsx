@@ -1,8 +1,8 @@
-import React, { use, useEffect } from 'react';
-import { styled } from '@mui/system';
-import { Box, Button, Container, Typography } from '@mui/material';
-import { useAccount } from 'wagmi';
-import { useRouter } from 'next/router';
+import React, { useEffect } from "react";
+import { styled } from "@mui/system";
+import { Box, Button, Container, Typography } from "@mui/material";
+import { useAccount } from "wagmi";
+import { useRouter } from "next/router";
 
 const RootContainer = styled(Box)`
   height: 100vh;
@@ -16,7 +16,7 @@ const RootContainer = styled(Box)`
   background-size: 20px 20px;
 `;
 
-const LogoImage = styled('img')`
+const LogoImage = styled("img")`
   width: 150px;
   margin-bottom: ${(props) => props.theme.spacing(4)};
 `;
@@ -25,7 +25,7 @@ const LoginBox = styled(Container)`
   background-color: #fff;
   padding: ${(props) => props.theme.spacing(4)};
   border-radius: ${(props) => props.theme.spacing(1)};
-  box-shadow: ${(props) => 
+  box-shadow: ${(props) =>
     //@ts-ignore
     props.theme.shadows[5]};
   text-align: center;
@@ -48,8 +48,8 @@ const LoginPage = () => {
   const router = useRouter();
   const Account = useAccount();
   useEffect(() => {
-    if (Account.address){
-      router.push('/dashboard');
+    if (Account.address) {
+      router.push("/dashboard");
     }
   }, [Account.address]);
 
@@ -57,16 +57,16 @@ const LoginPage = () => {
     <RootContainer>
       {/* Logo and login box components */}
       <WelcomeBox maxWidth="xs">
-        <Typography variant="h3" gutterBottom>
+        <Typography sx={{ color: "#000" }} variant="h3" gutterBottom>
           Welcome to RPCGo
         </Typography>
       </WelcomeBox>
       <LoginBox maxWidth="xs">
-        <Typography variant="body1" gutterBottom>
+        <Typography sx={{ color: "#000" }} variant="body1" gutterBottom>
           Please connect your wallet to sign-in or register.
         </Typography>
         <ConnectButtonContainer>
-        <w3m-connect-button />
+          <w3m-connect-button />
         </ConnectButtonContainer>
       </LoginBox>
     </RootContainer>
