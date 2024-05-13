@@ -3,7 +3,7 @@ import { Typography } from "@mui/material";
 import { useReadContract } from "wagmi";
 import InfoPanel from "../InfoPanel";
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import { getAccountBalance } from "@/utils/ContractHelpers";
+import { getAccountBalanceOnRpcGo } from "@/utils/ContractHelpers";
 
 export default function AccountBalance({
   address,
@@ -16,7 +16,7 @@ export default function AccountBalance({
     args: [address],
   });
 
-  let balanceInEther: string = getAccountBalance();
+  let balanceInEther: string = getAccountBalanceOnRpcGo();
   console.log(balanceInEther);
   /*if (balance != undefined) {
     const balanceBigInt: bigint = BigInt(balance);

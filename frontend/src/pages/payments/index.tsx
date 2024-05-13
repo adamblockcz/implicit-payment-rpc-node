@@ -11,6 +11,7 @@ import GetAppIcon from '@mui/icons-material/GetApp';
 import { getAccountBalanceOnRpcGo } from "@/utils/ContractHelpers";
 import { useWriteContract } from 'wagmi'
 import { ABI as RpcGoABI } from "@/abi/RpcGoABI";
+import { useAccount, useBalance } from "wagmi";
 import { writeContract } from "@wagmi/core";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -26,11 +27,11 @@ export default function Payments() {
   const [withdrawAmount, setWithdrawAmount] = React.useState("");
   const { writeContract } = useWriteContract()
 
-  //const account = useAccount;
-  //const balance = useBalance({
-  //  address: account.address,
-  //});
-  //console.log(balance);
+  const account = useAccount();
+  const balance = useBalance({
+    address: account.address,
+  });
+  console.log(balance);
 
   const handleDeposit = () => {
     // Convert deposit amount to number
@@ -44,9 +45,7 @@ export default function Payments() {
         abi: RpcGoABI,
         address: '0xC3Bf5ba7874FA863794B427DEef0ec866a492fBe',
         functionName: 'deposit',
-        args: [
-          amountInWei,
-        ],
+        value: BigInt(amountInWei)
       });
       console.log("Depositing:", depositAmount);
     } else {
@@ -68,7 +67,7 @@ export default function Payments() {
           <Item>
             <UploadIcon />
             <Typography variant="h6">Top up your account</Typography>
-            <Typography variant="body2">Balance on your wallet: balance</Typography>
+            <Typography variant="body2">Balance on your wallet: {balance.data?.formatted}</Typography>
             <TextField
               label="Enter amount"
               variant="outlined"

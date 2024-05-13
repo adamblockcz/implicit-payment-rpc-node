@@ -1,0 +1,42 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: RpcGo
+    network: holesky
+    source:
+      address: "0xC3Bf5ba7874FA863794B427DEef0ec866a492fBe"
+      abi: RpcGo
+      startBlock: 1524409
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ExecuteTransaction
+        - LogData
+        - OwnerWithdraw
+        - RevertReason
+        - TransferAccount
+        - Withdraw
+        # - UserProfile
+      abis:
+        - name: RpcGo
+          file: ./abis/RpcGo.json
+      eventHandlers:
+        - event: ExecuteTransaction(indexed address,indexed address,uint256,bytes)
+          handler: handleExecuteTransaction
+        - event: LogData(bytes)
+          handler: handleLogData
+        - event: OwnerWithdraw(uint256)
+          handler: handleOwnerWithdraw
+        - event: RevertReason(string)
+          handler: handleRevertReason
+        - event: TransferAccount(indexed address,indexed address,uint256)
+          handler: handleTransferAccount
+        - event: Withdraw(indexed address,uint256)
+          handler: handleWithdraw
+      file: ./src/rpc-go.ts
