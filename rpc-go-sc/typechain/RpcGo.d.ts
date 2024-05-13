@@ -27,6 +27,7 @@ interface RpcGoInterface extends ethers.utils.Interface {
     "getTotalAccountsBalance()": FunctionFragment;
     "ownerWithdraw()": FunctionFragment;
     "ownerWithdrawAmount(uint256)": FunctionFragment;
+    "setFeeAmount(uint256)": FunctionFragment;
     "submitTransaction(address,uint256,bytes)": FunctionFragment;
     "transferAccount(address,uint256)": FunctionFragment;
     "withdrawBalance(uint256)": FunctionFragment;
@@ -48,6 +49,10 @@ interface RpcGoInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "ownerWithdrawAmount",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setFeeAmount",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -85,6 +90,10 @@ interface RpcGoInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "setFeeAmount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "submitTransaction",
     data: BytesLike
   ): Result;
@@ -102,21 +111,29 @@ interface RpcGoInterface extends ethers.utils.Interface {
   ): Result;
 
   events: {
+    "Deposit(address,uint256)": EventFragment;
     "ExecuteTransaction(address,address,uint256,bytes)": EventFragment;
     "LogData(bytes)": EventFragment;
     "OwnerWithdraw(uint256)": EventFragment;
+    "Payment(address,uint256)": EventFragment;
     "RevertReason(string)": EventFragment;
     "TransferAccount(address,address,uint256)": EventFragment;
     "Withdraw(address,uint256)": EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: "Deposit"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ExecuteTransaction"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "LogData"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnerWithdraw"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Payment"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RevertReason"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TransferAccount"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Withdraw"): EventFragment;
 }
+
+export type DepositEvent = TypedEvent<
+  [string, BigNumber] & { account: string; amount: BigNumber }
+>;
 
 export type ExecuteTransactionEvent = TypedEvent<
   [string, string, BigNumber, string] & {
@@ -131,6 +148,10 @@ export type LogDataEvent = TypedEvent<[string] & { data: string }>;
 
 export type OwnerWithdrawEvent = TypedEvent<
   [BigNumber] & { amount: BigNumber }
+>;
+
+export type PaymentEvent = TypedEvent<
+  [string, BigNumber] & { account: string; amount: BigNumber }
 >;
 
 export type RevertReasonEvent = TypedEvent<[string] & { reason: string }>;
@@ -207,6 +228,11 @@ export class RpcGo extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    setFeeAmount(
+      _feeAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     submitTransaction(
       to: string,
       value: BigNumberish,
@@ -250,6 +276,11 @@ export class RpcGo extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  setFeeAmount(
+    _feeAmount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   submitTransaction(
     to: string,
     value: BigNumberish,
@@ -289,6 +320,11 @@ export class RpcGo extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    setFeeAmount(
+      _feeAmount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     submitTransaction(
       to: string,
       value: BigNumberish,
@@ -311,6 +347,22 @@ export class RpcGo extends BaseContract {
   };
 
   filters: {
+    "Deposit(address,uint256)"(
+      account?: string | null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { account: string; amount: BigNumber }
+    >;
+
+    Deposit(
+      account?: string | null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { account: string; amount: BigNumber }
+    >;
+
     "ExecuteTransaction(address,address,uint256,bytes)"(
       from?: string | null,
       to?: string | null,
@@ -342,6 +394,22 @@ export class RpcGo extends BaseContract {
     OwnerWithdraw(
       amount?: null
     ): TypedEventFilter<[BigNumber], { amount: BigNumber }>;
+
+    "Payment(address,uint256)"(
+      account?: string | null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { account: string; amount: BigNumber }
+    >;
+
+    Payment(
+      account?: string | null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { account: string; amount: BigNumber }
+    >;
 
     "RevertReason(string)"(
       reason?: null
@@ -405,6 +473,11 @@ export class RpcGo extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    setFeeAmount(
+      _feeAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     submitTransaction(
       to: string,
       value: BigNumberish,
@@ -448,6 +521,11 @@ export class RpcGo extends BaseContract {
 
     ownerWithdrawAmount(
       amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setFeeAmount(
+      _feeAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

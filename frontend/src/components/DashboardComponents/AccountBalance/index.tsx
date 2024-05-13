@@ -1,5 +1,9 @@
 import { rpcGoContractConfig } from "@/components/Web3ModalProvider";
+import { Typography } from "@mui/material";
 import { useReadContract } from "wagmi";
+import InfoPanel from "../InfoPanel";
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import { getAccountBalance } from "@/utils/ContractHelpers";
 
 export default function AccountBalance({
   address,
@@ -11,7 +15,21 @@ export default function AccountBalance({
     functionName: "getAccountBalance",
     args: [address],
   });
-  console.log("balance is " + balance);
 
-  return <div>Balance: {balance?.toString()}</div>;
+  let balanceInEther: string = getAccountBalance();
+  console.log(balanceInEther);
+  /*if (balance != undefined) {
+    const balanceBigInt: bigint = BigInt(balance);
+    balanceInEther = Number(balanceBigInt) / Number(BigInt(10 ** 18));
+    
+    return <InfoPanel icon={<AccountBalanceWalletIcon />} // Pass the icon component as a prop
+    description="Account balance"
+    number={balanceInEther.toString() + " ETH"}
+    color="primary"/>
+  }*/
+
+  return <InfoPanel icon={<AccountBalanceWalletIcon />} // Pass the icon component as a prop
+  description="Account balance"
+  number={balanceInEther}
+  color="primary"/>
 }

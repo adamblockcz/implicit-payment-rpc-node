@@ -65,6 +65,8 @@ contract RpcGo {
     event Withdraw(address indexed account, uint256 amount);
     event TransferAccount(address indexed from, address indexed to, uint256 amount);
     event OwnerWithdraw(uint256 amount);
+    event Deposit(address indexed account, uint256 amount);
+    event Payment(address indexed account, uint256 amount);
 
     IterableMapping.Map private accounts;
     address private owner;
@@ -91,7 +93,7 @@ contract RpcGo {
         // Deduct fee from sender's balance
         accounts.set(msg.sender, currentBalance - feeAmount);
     }
-
+    emit Payment(msg.sender, feeAmount);
     emit LogData(data);
 
     // Execute the transaction
@@ -116,6 +118,8 @@ contract RpcGo {
     function deposit() public payable {
         uint256 currentBalance = accounts.get(msg.sender);
         accounts.set(msg.sender, currentBalance + msg.value);
+
+        emit Deposit(msg.sender, msg.value);
     }
 
     function withdrawBalance(uint256 amount) public {
@@ -187,4 +191,8 @@ contract RpcGo {
     function getAccountBalance(address account) public view returns (uint256) {
         return accounts.get(account);
     }
+
+    function setFeeAmount(uint256 _feeAmount) external onlyOwner {
+        feeAmount = _feeAmount;
+}
 }

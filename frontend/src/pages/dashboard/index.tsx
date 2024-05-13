@@ -7,6 +7,8 @@ import { Typography } from "@mui/material";
 import TransactionsMade from "@/components/DashboardComponents/TransactionsMade";
 import AccountBalance from "@/components/DashboardComponents/AccountBalance";
 import { useAccount } from "wagmi";
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import InfoPanel from "@/components/DashboardComponents/InfoPanel";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -26,13 +28,16 @@ export default function Dashboard() {
       <Grid container spacing={2}>
         <Grid xs={4}>
           <Item>
-            <Typography>Transactions Made</Typography>
-            <TransactionsMade />
+          <InfoPanel
+              icon={<AccountBalanceWalletIcon />} // Pass the icon component as a prop
+              description="Transactions created"
+              number={333}
+              color="primary" // Optional: Specify a color for the icon
+            />
           </Item>
         </Grid>
         <Grid xs={4}>
           <Item>
-            <Typography>Account Balance</Typography>
             <AccountBalance address={address} />
           </Item>
         </Grid>
