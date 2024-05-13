@@ -4,7 +4,9 @@ import {
   OwnerWithdraw as OwnerWithdrawEvent,
   RevertReason as RevertReasonEvent,
   TransferAccount as TransferAccountEvent,
-  Withdraw as WithdrawEvent
+  Withdraw as WithdrawEvent,
+  Deposit as DepositEvent,
+  Payment as PaymentEvent
 } from "../generated/RpcGo/RpcGo"
 import {
   ExecuteTransaction,
@@ -13,7 +15,9 @@ import {
   RevertReason,
   TransferAccount,
   Withdraw,
-  UserProfile
+  UserProfile,
+  Deposit,
+  Payment
 } from "../generated/schema"
 
 export function handleExecuteTransaction(event: ExecuteTransactionEvent): void {
@@ -37,6 +41,34 @@ export function handleExecuteTransaction(event: ExecuteTransactionEvent): void {
     user = new UserProfile(entity.from);
     user.save();
   }
+}
+
+export function handleDeposit(event: DepositEvent): void{
+  let entity = new Deposit(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.account = event.params.account
+  entity.amount = event.params.amount
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
+
+export function handlePayment(event: PaymentEvent): void{
+  let entity = new Deposit(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.account = event.params.account
+  entity.amount = event.params.amount
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
 }
 
 export function handleLogData(event: LogDataEvent): void {

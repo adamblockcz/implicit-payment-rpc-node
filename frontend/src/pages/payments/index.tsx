@@ -12,7 +12,17 @@ import { getAccountBalanceOnRpcGo } from "@/utils/ContractHelpers";
 import { useWriteContract } from 'wagmi'
 import { ABI as RpcGoABI } from "@/abi/RpcGoABI";
 import { useAccount, useBalance } from "wagmi";
-import { writeContract } from "@wagmi/core";
+import { fetchFromSubgraphWithdrawalsDeposits } from "@/utils/TheGraphUtils";
+import {
+  Hash,
+  TransactionReceipt
+} from 'viem'
+import { waitForTransactionReceipt } from '@wagmi/core'
+import { config } from "@/components/Web3ModalProvider";
+import HistoricTransactionData from "@/components/PaymentsComponents/HistoricTransactionsData";
+import { encodeFunctionData } from 'viem';
+
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -25,40 +35,116 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Payments() {
   const [depositAmount, setDepositAmount] = React.useState("");
   const [withdrawAmount, setWithdrawAmount] = React.useState("");
-  const { writeContract } = useWriteContract()
+  const [historicTransactions, setHistoricTransactions] = React.useState<{
+    deposits: [{
+        account: string;
+        amount: string;
+        transactionHash: string;
+        id: string;
+        blockTimestamp: string;
+    }];
+    withdraws: [{
+        account: string;
+        amount: string;
+        transactionHash: string;
+        id: string;
+        blockTimestamp: string;
+    }];
+}>();
+
+  // retrieve balance on account
+  const { writeContractAsync } = useWriteContract()
 
   const account = useAccount();
   const balance = useBalance({
     address: account.address,
   });
-  console.log(balance);
+  React.useEffect(() => {
+    console.log("Updated historicTransactions:", historicTransactions);
+}, [historicTransactions]);
+  // function updating historicTransactions if new is pending
+  const addTransaction = (type: string, amount: string, transactionHash: string, blockTimestamp: string, completed: Boolean) => {
+    const newTransaction = { account: "", amount, transactionHash, id: "", blockTimestamp};
+    if (!completed) {
+        if (type === "Deposit") {
+            setHistoricTransactions({ ...historicTransactions, deposits: [newTransaction, ...historicTransactions!.deposits] });
+        } else {
+            setHistoricTransactions({ ...historicTransactions, withdraws: [newTransaction, ...historicTransactions!.withdraws] });
+        }
+    } else {
+      setHistoricTransactions(prevTransactions => {
+        const updatedDeposits = prevTransactions?.deposits.map(transaction => {
+          if (transaction.transactionHash === transactionHash) {
+            return { ...transaction, blockTimestamp };
+          }
+          return transaction;
+        });
+        const updatedWithdraws = prevTransactions?.withdraws.map(transaction => {
+          if (transaction.transactionHash === transactionHash) {
+            return { ...transaction, blockTimestamp };
+          }
+          return transaction;
+        });
+        return {
+          deposits: updatedDeposits || [],
+          withdraws: updatedWithdraws || [],
+        };
+      });
+    }
+};
 
-  const handleDeposit = () => {
-    // Convert deposit amount to number
+
+  // function handling deposit function smart contract call
+  const handleDeposit = async () => {
     const amount = parseFloat(depositAmount);
-    // Check if amount is a valid number and greater than 0
     if (!isNaN(amount) && amount > 0) {
-      // Convert amount to wei (1 ether = 10^18 wei)
       const amountInWei: number = amount * 10**18;
-      // Call writeContract function with the deposit amount in wei
-      writeContract({ 
+      const result = await writeContractAsync({ 
         abi: RpcGoABI,
         address: '0xC3Bf5ba7874FA863794B427DEef0ec866a492fBe',
         functionName: 'deposit',
         value: BigInt(amountInWei)
       });
-      console.log("Depositing:", depositAmount);
-    } else {
-      console.error("Invalid deposit amount");
+      addTransaction("Deposit", depositAmount, result, "Pending", false);
+      const resultReceipt = await waitForTransactionReceipt(config, {
+        hash: result,
+      })
+      addTransaction("Deposit", depositAmount, result, "Completed", true);
     }
   };
 
-  const handleWithdraw = () => {
-    // Handle withdraw logic here
-    console.log("Withdrawing:", withdrawAmount);
+  // function handling withdraw function smart contract call
+  const handleWithdraw = async () => {
+    const amount = parseFloat(withdrawAmount);
+    if (!isNaN(amount) && amount > 0) {
+      const amountInWei: number = amount * 10**18;
+      const result = await writeContractAsync({ 
+        abi: RpcGoABI,
+        address: '0xC3Bf5ba7874FA863794B427DEef0ec866a492fBe',
+        functionName: 'withdrawBalance',
+        args: [BigInt(amountInWei)],
+      });
+      addTransaction("Withdraw", withdrawAmount, result, "Pending", false);
+      const resultReceipt = await waitForTransactionReceipt(config, {
+        hash: result,
+      });
+      addTransaction("Withdraw", withdrawAmount, result, "Completed", true);
+    }
   };
 
-  let balanceOnContract: string = getAccountBalanceOnRpcGo();
+  // retrieve balance on contract
+  const balanceOnContract: string = getAccountBalanceOnRpcGo();
+
+  React.useEffect(
+    () => {
+      async function cb(){
+        if (!account.address){
+          return;
+        }
+        setHistoricTransactions(await fetchFromSubgraphWithdrawalsDeposits(account.address!));
+      }
+      cb();
+    }, [account?.address]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -67,7 +153,7 @@ export default function Payments() {
           <Item>
             <UploadIcon />
             <Typography variant="h6">Top up your account</Typography>
-            <Typography variant="body2">Balance on your wallet: {balance.data?.formatted}</Typography>
+            <Typography variant="body2">Balance on your wallet: {(balance.data?.formatted as string)?.substr(0, 8)}</Typography>
             <TextField
               label="Enter amount"
               variant="outlined"
@@ -101,6 +187,9 @@ export default function Payments() {
               Withdraw all funds
             </Button>
           </Item>
+        </Grid>
+        <Grid item xs={12}>
+          <HistoricTransactionData data={historicTransactions}></HistoricTransactionData>
         </Grid>
       </Grid>
     </Box>
