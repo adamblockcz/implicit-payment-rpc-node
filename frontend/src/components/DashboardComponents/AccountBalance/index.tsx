@@ -17,7 +17,6 @@ export default function AccountBalance({
   });
 
   let balanceInEther: string = getAccountBalanceOnRpcGo();
-  console.log(balanceInEther);
   /*if (balance != undefined) {
     const balanceBigInt: bigint = BigInt(balance);
     balanceInEther = Number(balanceBigInt) / Number(BigInt(10 ** 18));
@@ -30,6 +29,6 @@ export default function AccountBalance({
 
   return <InfoPanel icon={<AccountBalanceWalletIcon />} // Pass the icon component as a prop
   description="Account balance"
-  number={balanceInEther}
+  number={balanceInEther + " ETH"}
   color="primary"/>
 }

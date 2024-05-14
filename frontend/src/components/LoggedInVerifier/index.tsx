@@ -8,7 +8,6 @@ export function LoggedInVerifier() {
     useEffect(() => {
       const disconnect = watchAccount(config, {
         onChange(data) {
-          console.log(data);
           if (data.isDisconnected){
             router.push('/login');
           }

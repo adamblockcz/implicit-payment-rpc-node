@@ -20,6 +20,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PaymentIcon from "@mui/icons-material/Payment";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import ProfileMenu from "../LayoutComponents/ProfileMenu/ProfileMenu";
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import { LoggedInVerifier } from "../LoggedInVerifier";
 
 const drawerWidth = 240;
@@ -196,6 +197,12 @@ export default function MiniDrawer({ children }: React.PropsWithChildren<{}>) {
           <StyledListItem onClick={() => navigateTo("/migration")}>
             <ListItemIconWrapper>
               <ChangeCircleIcon />
+            </ListItemIconWrapper>
+            <ListItemTextWrapper primary="Migrate account" />
+          </StyledListItem>
+          <StyledListItem onClick={() => navigateTo("/transaction")}>
+            <ListItemIconWrapper>
+              <ReceiptLongIcon />
             </ListItemIconWrapper>
             <ListItemTextWrapper primary="Migrate account" />
           </StyledListItem>

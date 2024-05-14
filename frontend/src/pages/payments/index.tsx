@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import UploadIcon from '@mui/icons-material/Upload';
 import GetAppIcon from '@mui/icons-material/GetApp';
 import { getAccountBalanceOnRpcGo } from "@/utils/ContractHelpers";
-import { useWriteContract } from 'wagmi'
+import { useWriteContract } from 'wagmi';
 import { ABI as RpcGoABI } from "@/abi/RpcGoABI";
 import { useAccount, useBalance } from "wagmi";
 import { fetchFromSubgraphWithdrawalsDeposits } from "@/utils/TheGraphUtils";
@@ -20,7 +20,6 @@ import {
 import { waitForTransactionReceipt } from '@wagmi/core'
 import { config } from "@/components/Web3ModalProvider";
 import HistoricTransactionData from "@/components/PaymentsComponents/HistoricTransactionsData";
-import { encodeFunctionData } from 'viem';
 
 
 
@@ -53,7 +52,7 @@ export default function Payments() {
 }>();
 
   // retrieve balance on account
-  const { writeContractAsync } = useWriteContract()
+  const { writeContractAsync } = useWriteContract();
 
   const account = useAccount();
   const balance = useBalance({

@@ -58,7 +58,7 @@ export function handleDeposit(event: DepositEvent): void{
 }
 
 export function handlePayment(event: PaymentEvent): void{
-  let entity = new Deposit(
+  let entity = new Payment(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.account = event.params.account
