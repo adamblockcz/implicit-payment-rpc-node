@@ -26,14 +26,14 @@ export default function UsageGraph({ data }: TransactionProps) {
     const startDate30Days = previous30DaysStart.getTime() / 1000;
 
     const transactionsLast30Days = data.payments.filter(
-        transaction => transaction.blockTimestamp >= startDate30Days && transaction.blockTimestamp <= endDate
+        transaction => Number(transaction.blockTimestamp) >= startDate30Days && Number(transaction.blockTimestamp) <= endDate
     );
 
     const transactionsPrevious30Days = data.payments.filter(
-        transaction => transaction.blockTimestamp <= startDate30Days && transaction.blockTimestamp >= startDate60Days
+        transaction => Number(transaction.blockTimestamp) <= startDate30Days && Number(transaction.blockTimestamp) >= startDate60Days
     );
 
-    const countTransactionsPerDay = (transactions) => {
+    const countTransactionsPerDay = (transactions: TransactionProps) => {
     const counts = {};
     transactions.forEach(transaction => {
         const date = new Date(transaction.blockTimestamp * 1000);

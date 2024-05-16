@@ -2,7 +2,6 @@
 pragma solidity ^0.8.9;
 
 library IterableMapping {
-    // Iterable mapping from address to uint;
     struct Map {
         address[] keys;
         mapping(address => uint256) values;

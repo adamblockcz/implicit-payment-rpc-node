@@ -6,7 +6,6 @@ import { useWriteContract } from 'wagmi';
 import { config } from '@/components/Web3ModalProvider';
 import { ABI as RpcGoAbi } from '@/abi/RpcGoABI';
 import { styled } from "@mui/material/styles";
-import { ABI as ERC20GoAbi } from '@/abi/ERC20ABI';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
