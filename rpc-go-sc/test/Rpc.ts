@@ -33,6 +33,19 @@ describe("RpcGo contract", function () {
     erc20 = await ERC20.deploy();
   });
 
+  it("Should submit a transaction and deduct the fee", async function () {
+    await rpcGo.connect(addr1).deposit({ value: ethers.utils.parseEther("1.0") });
+    expect(await rpcGo.getAccountBalance(addr1.address)).to.equal(ethers.utils.parseEther("1.0"));
+
+    const transactionValue = ethers.utils.parseEther("0.5");
+    const feeAmount = ethers.utils.parseEther("0.0001");
+    await expect(
+        rpcGo.connect(addr1).submitTransaction(addr2.address, 0, "0x", { value: 0 })
+    ).to.emit(rpcGo, 'ExecuteTransaction')
+    .withArgs(addr1.address, addr2.address, 0, "0x");
+    expect(await rpcGo.getAccountBalance(addr1.address)).to.equal(ethers.utils.parseEther("1.0").sub(feeAmount));
+});
+
   it("should deposit ETH into the contract", async () => {
     await rpcGo.deposit({ value: ONE_ETHER });
 
