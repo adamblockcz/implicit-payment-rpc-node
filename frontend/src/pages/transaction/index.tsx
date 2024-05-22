@@ -162,7 +162,7 @@ const TransactionForm: React.FC = () => {
             Verification Failed
           </Typography>
           <Typography id="modal-explanation" variant="body1" gutterBottom>
-            The function declaration should be in the format: "function functionName(argumentType1 argumentName1, argumentType2 argumentName2, ...)"
+          The function declaration should be in the format: &quot;function functionName(argumentType1 argumentName1, argumentType2 argumentName2, ...)&quot; 
           </Typography>
           <Button onClick={() => setModalOpen(false)} variant="contained">Close</Button>
         </Box>

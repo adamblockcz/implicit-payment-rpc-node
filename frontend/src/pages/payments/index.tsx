@@ -8,7 +8,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import UploadIcon from '@mui/icons-material/Upload';
 import GetAppIcon from '@mui/icons-material/GetApp';
-import { getAccountBalanceOnRpcGo } from "@/utils/ContractHelpers";
+import { useAccountBalanceOnRpcGo } from "@/utils/ContractHelpers";
 import { useWriteContract } from 'wagmi';
 import { ABI as RpcGoABI } from "@/abi/RpcGoABI";
 import { useAccount, useBalance } from "wagmi";
@@ -132,7 +132,7 @@ export default function Payments() {
   };
 
   // retrieve balance on contract
-  const balanceOnContract: string = getAccountBalanceOnRpcGo();
+  const balanceOnContract: string = useAccountBalanceOnRpcGo();
 
   React.useEffect(
     () => {
