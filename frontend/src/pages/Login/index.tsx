@@ -44,7 +44,7 @@ const ConnectButtonContainer = styled(Box)`
   width: 100%;
 `;
 
-const LoginPage = () => {
+const Login = () => {
   const router = useRouter();
   const Account = useAccount();
   useEffect(() => {
@@ -73,4 +73,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;
