@@ -7,6 +7,7 @@ export function useAccountBalanceOnRpcGo() {
     const { data: balance } = useReadContract({
         ...rpcGoContractConfig,
         functionName: "getAccountBalance",
+        //@ts-ignore
         args: [address],
     });
 

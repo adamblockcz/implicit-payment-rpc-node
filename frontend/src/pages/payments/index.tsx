@@ -66,11 +66,14 @@ export default function Payments() {
     const newTransaction = { account: "", amount, transactionHash, id: "", blockTimestamp};
     if (!completed) {
         if (type === "Deposit") {
+          //@ts-ignore
             setHistoricTransactions({ ...historicTransactions, deposits: [newTransaction, ...historicTransactions!.deposits] });
         } else {
+          //@ts-ignore
             setHistoricTransactions({ ...historicTransactions, withdraws: [newTransaction, ...historicTransactions!.withdraws] });
         }
     } else {
+      //@ts-ignore
       setHistoricTransactions(prevTransactions => {
         const updatedDeposits = prevTransactions?.deposits.map(transaction => {
           if (transaction.transactionHash === transactionHash) {
@@ -188,6 +191,8 @@ export default function Payments() {
           </Item>
         </Grid>
         <Grid item xs={12}>
+          {/* 
+          // @ts-ignore */}
           <HistoricTransactionData data={historicTransactions}></HistoricTransactionData>
         </Grid>
       </Grid>

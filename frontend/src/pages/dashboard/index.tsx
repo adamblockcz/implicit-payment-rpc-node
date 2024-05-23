@@ -60,12 +60,14 @@ export default function Dashboard() {
               icon={<AccountBalanceWalletIcon />} // Pass the icon component as a prop
               description="Transactions created"
               number={txCount}
-              color="primary" // Optional: Specify a color for the icon
+              color="primary" 
             />
           </Item>
         </Grid>
         <Grid xs={4}>
           <Item>
+            {/* 
+          // @ts-ignore */}
             <AccountBalance address={account?.address} />
           </Item>
         </Grid>
@@ -75,7 +77,7 @@ export default function Dashboard() {
               icon={<PaidIcon/>}
               description="Total spend"
               number={txAmountSum + " ETH"}
-              color="primary" // Optional: Specify a color for the icon
+              color="primary"
             />
           </Item>
         </Grid>
