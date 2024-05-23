@@ -51,7 +51,7 @@ const LoginPage = () => {
     if (Account.address) {
       router.push("/dashboard");
     }
-  }, [Account.address]);
+  }, [Account.address, router]);
 
   return (
     <RootContainer>

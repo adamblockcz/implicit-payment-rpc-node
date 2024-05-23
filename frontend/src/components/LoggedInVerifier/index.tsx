@@ -14,7 +14,7 @@ export function LoggedInVerifier() {
         },
       })
       return disconnect;
-    });
+    }, [router]);
   
     return null;
   }
