@@ -4,6 +4,8 @@ import React from "react";
 import { SxProps } from "@mui/system";
 import { SvgIconProps } from "@mui/material/SvgIcon";
 
+// general component for displaying specific type of data, accepts icon as prop, description and number
+
 interface TransactionProps {
   icon: React.ReactElement<SvgIconProps>;
   description: string;

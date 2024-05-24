@@ -2,6 +2,8 @@
 import { rpcGoContractConfig } from "@/components/Web3ModalProvider";
 import { useAccount, useReadContract } from "wagmi";
 
+// retrieves account balance from rpc go smart contract
+
 export function useAccountBalanceOnRpcGo() {
     const { address } = useAccount();
     const { data: balance } = useReadContract({

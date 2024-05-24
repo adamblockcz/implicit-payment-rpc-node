@@ -7,20 +7,19 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { PropsWithChildren } from "react";
 import { ABI as RpcGoABI } from "@/abi/RpcGoABI";
 
+// inicialization of web3modal
+
 const provider = process.env.PROVIDER;
 const rpcGoContractAddress = process.env.NEXT_PUBLIC_RPC_GO_CONTRACT_ADDRESS;
 
-// 0. Setup queryClient
 const queryClient = new QueryClient();
 
-// 1. Get projectId at https://cloud.walletconnect.com
 const projectId = "8e69296476a1947583bc9379a38e0b92";
 
-// 2. Create wagmiConfig
 const metadata = {
   name: "Web3Modal",
   description: "Web3Modal Example",
-  url: "https://web3modal.com", // origin must match your domain & subdomain
+  url: "https://web3modal.com",
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
@@ -38,7 +37,6 @@ export const rpcGoContractConfig = {
   chainId: holesky.id,
 };
 
-// 3. Create modal
 createWeb3Modal({
   wagmiConfig: config,
   projectId,

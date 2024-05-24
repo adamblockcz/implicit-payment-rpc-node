@@ -5,6 +5,7 @@ import InfoPanel from "../InfoPanel";
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import { useAccountBalanceOnRpcGo } from "@/utils/ContractHelpers";
 
+// Component implements InfoPanel for use of retrieving and displaying account balance
 
 export default function AccountBalance({
   address,

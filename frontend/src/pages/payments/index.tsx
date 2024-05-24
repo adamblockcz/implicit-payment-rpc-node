@@ -51,7 +51,7 @@ export default function Payments() {
     }];
 }>();
 
-  // retrieve balance on account
+
   const { writeContractAsync } = useWriteContract();
 
   const account = useAccount();
@@ -61,7 +61,9 @@ export default function Payments() {
   React.useEffect(() => {
     console.log("Updated historicTransactions:", historicTransactions);
 }, [historicTransactions]);
-  // function updating historicTransactions if new is pending
+
+  // adds pending transaction in the beggining of transaction sorted list
+
   const addTransaction = (type: string, amount: string, transactionHash: string, blockTimestamp: string, completed: Boolean) => {
     const newTransaction = { account: "", amount, transactionHash, id: "", blockTimestamp};
     if (!completed) {
@@ -136,7 +138,7 @@ export default function Payments() {
 
   // retrieve balance on contract
   const balanceOnContract: string = useAccountBalanceOnRpcGo();
-
+  // retrieves data from subgraph
   React.useEffect(
     () => {
       async function cb(){

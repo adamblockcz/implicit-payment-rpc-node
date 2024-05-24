@@ -3,6 +3,8 @@ import { watchAccount } from "@wagmi/core";
 import { config } from "../Web3ModalProvider";
 import { useRouter } from "next/router";
 
+// on every page this component verifies user has their wallet connected
+
 export function LoggedInVerifier() {
     const router = useRouter();
     useEffect(() => {

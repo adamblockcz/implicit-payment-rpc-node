@@ -1,5 +1,7 @@
 import { gql, request } from 'graphql-request';
 
+// fetches withrawals and depositons on rpc go smart contract from SubGraph
+
 export async function fetchFromSubgraphWithdrawalsDeposits(wallet: string) { 
     const query = gql` 
     {

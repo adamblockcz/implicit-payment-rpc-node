@@ -25,20 +25,24 @@ const TransactionForm: React.FC = () => {
   const [verificationPassed, setVerificationPassed] = useState<boolean>(false);
   const { writeContractAsync } = useWriteContract();
 
+  // parses function declaration
+
   const parseFunctionDeclaration = (declaration: string) => {
-    const trimmedDeclaration = declaration.trim(); // Trim whitespace
+    const trimmedDeclaration = declaration.trim();
     const regex = /^function\s+(\w+)\((.*?)\)$/;
     const match = trimmedDeclaration.match(regex);
     if (match) {
       const [, functionName, params] = match;
       const args = params.split(',').map(arg => arg.trim());
-      setFunctionDeclaration(trimmedDeclaration); // Save trimmed declaration
+      setFunctionDeclaration(trimmedDeclaration);
       setArgs(args);
       setVerificationPassed(true);
     } else {
       setModalOpen(true);
     }
   };
+
+  // on submit sends the transaction to RPC
 
   const handleSubmit = async () => {
     const abiItem = constructAbiItem(functionDeclaration);

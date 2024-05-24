@@ -26,6 +26,8 @@ const theme = createTheme({
   },
 });
 
+// necessary custom parent components added: layout, web3modal
+
 export default function App(props: AppProps) {
   return (
     <AppCacheProvider {...props}>

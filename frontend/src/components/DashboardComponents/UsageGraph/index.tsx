@@ -2,6 +2,8 @@ import React from 'react';
 import { LineChart } from '@mui/x-charts';
 import { Box } from '@mui/material';
 
+// component for showing trasnaction data
+
 interface TransactionProps {
     data: {
         payments: [{
@@ -13,18 +15,21 @@ interface TransactionProps {
     };
   }
 
+// component with graph of usage
+
 export default function UsageGraph({ data }: TransactionProps) {
+
   const today = new Date();
   const endDate = today.getTime() / 1000;
   if(data){
+    // initialize dates
     const last60DaysStart = new Date();
     last60DaysStart.setDate(today.getDate() - 60);
     const startDate60Days = last60DaysStart.getTime() / 1000;
-
     const previous30DaysStart = new Date();
     previous30DaysStart.setDate(today.getDate() - 90);
     const startDate30Days = previous30DaysStart.getTime() / 1000;
-
+    // sort transaction into two intervals
     const transactionsLast30Days = data.payments.filter(
         transaction => Number(transaction.blockTimestamp) >= startDate30Days && Number(transaction.blockTimestamp) <= endDate
     );
@@ -32,7 +37,7 @@ export default function UsageGraph({ data }: TransactionProps) {
     const transactionsPrevious30Days = data.payments.filter(
         transaction => Number(transaction.blockTimestamp) <= startDate30Days && Number(transaction.blockTimestamp) >= startDate60Days
     );
-
+    // sort create array od data - usage per day
     const countTransactionsPerDay = (transactions: TransactionProps) => {
     const counts = {};
     transactions.forEach(transaction => {

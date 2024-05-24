@@ -47,6 +47,7 @@ const ConnectButtonContainer = styled(Box)`
 const Login = () => {
   const router = useRouter();
   const Account = useAccount();
+  // once address exists routes to dashboard
   useEffect(() => {
     if (Account.address) {
       router.push("/dashboard");
@@ -55,7 +56,6 @@ const Login = () => {
 
   return (
     <RootContainer>
-      {/* Logo and login box components */}
       <WelcomeBox maxWidth="xs">
         <Typography sx={{ color: "#000" }} variant="h3" gutterBottom>
           Welcome to RPCGo

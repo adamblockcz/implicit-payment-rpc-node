@@ -1,8 +1,8 @@
-// TopSideMenu.tsx
-
 import React from "react";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
+
+// top bar component that wraps profile menu component
 
 const TopSideMenu: React.FC = () => {
   return (

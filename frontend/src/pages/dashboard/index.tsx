@@ -13,6 +13,8 @@ import { formatEther } from 'viem';
 import UsageGraph from "@/components/DashboardComponents/UsageGraph";
 import Typography from "@mui/material/Typography";
 
+// component for dashboard page, 
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -33,7 +35,7 @@ export default function Dashboard() {
         blockTimestamp: string;
     }];
 }>();
-
+ // retrieves data if account address is available
   React.useEffect(
     () => {
       async function cb(){
@@ -57,7 +59,7 @@ export default function Dashboard() {
         <Grid xs={4}>
           <Item>
           <InfoPanel
-              icon={<AccountBalanceWalletIcon />} // Pass the icon component as a prop
+              icon={<AccountBalanceWalletIcon />}
               description="Transactions created"
               number={txCount}
               color="primary" 

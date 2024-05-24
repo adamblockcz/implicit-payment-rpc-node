@@ -5,6 +5,8 @@ import { styled } from "@mui/system";
 import { useAccount, useDisconnect } from "wagmi";
 import { disconnect } from "@wagmi/core";
 
+// component for profile menu, only feature present is to disconnect wallet
+
 const ProfileButton = styled(IconButton)`
   display: flex;
   align-items: center;
