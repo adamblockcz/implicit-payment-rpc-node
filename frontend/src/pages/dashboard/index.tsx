@@ -13,7 +13,7 @@ import { formatEther } from 'viem';
 import UsageGraph from "@/components/DashboardComponents/UsageGraph";
 import Typography from "@mui/material/Typography";
 
-// component for dashboard page, 
+// component for dashboard page
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -27,6 +27,7 @@ export default function Dashboard() {
   const account = useAccount();
   const [ txCount, setTxCount ] = React.useState("");
   const [ txAmountSum, setTxAmountSum ] = React.useState("");
+  const [ addr, setAddr ] = React.useState("");
   const [ data, setData ] = React.useState<{
     payments: [{
         account: string;
@@ -35,6 +36,9 @@ export default function Dashboard() {
         blockTimestamp: string;
     }];
 }>();
+React.useEffect(() => {
+  setAddr(localStorage.getItem("address") || "");
+}, [])
  // retrieves data if account address is available
   React.useEffect(
     () => {
@@ -55,6 +59,9 @@ export default function Dashboard() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+          <Typography display={"flex"} justifyContent={"center"}>
+    You are connected from address {addr}
+</Typography>
       <Grid container spacing={2}>
         <Grid xs={4}>
           <Item>
@@ -88,7 +95,9 @@ export default function Dashboard() {
         <Grid  xs={12} marginTop="3vh">
           <Item>
             <Typography variant="h6" gutterBottom>Last 30 days transactions count</Typography>
+            <Box display={"flex"} justifyContent={"center"}>
             <UsageGraph data={data!} />
+            </Box>
           </Item>
         </Grid>
       </Grid>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { LineChart } from '@mui/x-charts';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 // component for showing trasnaction data
 
@@ -82,6 +82,7 @@ export default function UsageGraph({ data }: TransactionProps) {
     }
 
     return (
+      <Box>
         <LineChart
         xAxis={[
             {
@@ -89,7 +90,7 @@ export default function UsageGraph({ data }: TransactionProps) {
               data: days,
             },
           ]}
-          width={"900"}
+          width={900}
           height={400}
           margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
           series={[
@@ -99,6 +100,7 @@ export default function UsageGraph({ data }: TransactionProps) {
       ]}
         >
         </LineChart>
+        </Box>
       );
   }
   

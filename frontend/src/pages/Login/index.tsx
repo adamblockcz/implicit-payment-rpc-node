@@ -50,6 +50,7 @@ const Login = () => {
   // once address exists routes to dashboard
   useEffect(() => {
     if (Account.address) {
+      localStorage.setItem("address", Account.address);
       router.push("/dashboard");
     }
   }, [Account.address, router]);
